@@ -1,10 +1,21 @@
 const mongoose = require("mongoose");
 
 var courseSchema = new mongoose.Schema({
-  cname        : { type: String },
-  par          : { type: Number },
-  pCount       : { type: Number },
-  cid          : { type: Number, unique: true }
+  cname: {
+    type: String,
+    required: true
+  },
+  cid: {
+    type: Number,
+    required: true,
+    unique: true
+  },
+  par: {
+    type: Number
+  },
+  pCount: {
+    type: Number
+  }
 });
 
 var Course = mongoose.model("Course", courseSchema);

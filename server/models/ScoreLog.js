@@ -1,9 +1,17 @@
 const mongoose = require("mongoose");
 
 var scoreLogSchema = new mongoose.Schema({
-  score        : { type: Number },
-  cid          : { type: Number },
-  username     : { type: String }
+  score: {
+    type: Number
+  },
+  cid: {
+    type: Number,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  }
 });
 
 var ScoreLog = mongoose.model("ScoreLog", scoreLogSchema);
