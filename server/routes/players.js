@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const Course = require("../models/Course");
 const Player = require("../models/Player");
+const ScoreLog = require("../models/ScoreLog");
 
 //Get all registered players
 router.get('/', async function(req, res) {
@@ -101,6 +103,34 @@ router.put('/:username', async function(req, res) {
               content: ex.message
             });
           }
+        }
+      })
+    }
+  })
+})
+
+//Get scores by username
+router.get('/:username/scoreLogs', async function(req, res) {
+  await Player.findOne({ username: req.params.username })
+  .exec(async function(err, course) {
+    if (!course) {
+      res.send({
+        success: false,
+        content: "Player with the given username does not exist."
+      });
+    } else {
+      await ScoreLog.find({ username: req.params.username })
+      .exec(function(err, scoreLogs) {
+        if (!scoreLogs) {
+          res.send({
+            success: false,
+            content: "There are no logged scores by the given user."
+          });
+        } else {
+          res.send({
+            success: true,
+            content: scoreLogs
+          });
         }
       })
     }
