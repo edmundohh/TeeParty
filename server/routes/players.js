@@ -44,6 +44,7 @@ router.post('/', async function(req, res) {
   let player = new Player({
     name: req.body.name,
     username: req.body.username,
+    password: req.body.password,
     following: []
   });
 
@@ -73,7 +74,7 @@ router.put('/:username', async function(req, res) {
         content: "Player with the given username does not exist."
       });
     } else {
-      await Player.findOne({ username: req.body.following[0] })
+      await Player.findOne({ username: req.body.playerToFollow })
       .exec(async function(err, playerToFollow) {
         //TODO: also check if following.length == 1
         if (!playerToFollow) {

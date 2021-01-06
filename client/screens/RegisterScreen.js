@@ -8,21 +8,22 @@ import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import ErrorMessage from '../components/ErrorMessage';
 
-import authApi from "../api/auth";
+import playerApi from "../api/players";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().label("Username"),
+  name: Yup.string().required().label("Name"),
   password: Yup.string().required().label("Password")
 });
 
-function LoginScreen(props) {
-  const [loginFailed, setLoginFailed] = useState(false);
+function RegisterScreen(props) {
+  const [playerCreationFailed, setPlayerCreationFailed] = useState(false);
 
-  const handleSubmit = async ({ username, password }) => {
-    const result = await authApi.login(username, password);
+  const handleSubmit = async ({ username, name, password }) => {
+    const result = await playerApi.createPlayer(username, name, password)
     console.log(result.data)
-    if (!result.ok) return setLoginFailed(true);
-    setLoginFailed(false);
+    if (!result.ok) return setPlayerCreationFailed(true);
+    setPlayerCreationFailed(false);
     console.log(result.data)
   };
 
@@ -31,7 +32,7 @@ function LoginScreen(props) {
         <Text style={styles.title}>TeeParty</Text>
         <View style={styles.loginContainer}>
           <Formik
-            initialValues={{ username: '', password: ''}}
+            initialValues={{ username: '', name: '', password: ''}}
             onSubmit={handleSubmit}
             validationSchema={validationSchema}
           >
@@ -43,16 +44,23 @@ function LoginScreen(props) {
                 autoCorrect={false}
                 onChangeText={handleChange("username")}
               />
-              <ErrorMessage error={errors.username} visible={loginFailed}/>
+              <ErrorMessage error={errors.username} visible={playerCreationFailed}/>
+              <AppTextInput 
+                placeholder="Name"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onChangeText={handleChange("name")}
+              />
+              <ErrorMessage error={errors.name} visible={playerCreationFailed}/>
               <AppTextInput 
                 placeholder="Password" 
                 autoCorrect={false}
                 secureTextEntry={true}
                 onChangeText={handleChange("password")}
               />
-              <ErrorMessage error={errors.password} visible={loginFailed}/>
+              <ErrorMessage error={errors.password} visible={playerCreationFailed}/>
               <AppButton 
-                title="LOGIN"
+                title="REGISTER"
                 color="green"
                 textColor="white"
                 onPress={handleSubmit}/>
@@ -80,4 +88,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default LoginScreen;
+export default RegisterScreen;

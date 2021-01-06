@@ -1,14 +1,15 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, View, Text } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import AppButton from '../components/AppButton';
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <Text style={styles.title}>TeeParty</Text>
       <View style={styles.buttonContainer}>
-        <AppButton title="LOGIN" color="white" onPress={() => console.log("clicked")}/>
-        <AppButton title="REGISTER" color="yellow" onPress={() => console.log("clicked")}/>
+        <AppButton title="LOGIN" color="white" onPress={() => navigation.navigate("Login")}/>
+        <AppButton title="REGISTER" color="yellow" onPress={() => navigation.navigate("Register")}/>
       </View>
     </View>
   );

@@ -10,6 +10,10 @@ var playerSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  password: {
+    type: String,
+    required: true
+  },
   following: {
     type: [String]
   }

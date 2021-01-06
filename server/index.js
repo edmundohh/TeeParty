@@ -37,6 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const players = require("./routes/players");
 const courses = require("./routes/courses");
 const scoreLogs = require("./routes/scoreLogs");
+const auth = require("./routes/auth");
 
 // Declare application parameters
 // Will have to change this if moving to a VM
@@ -55,6 +56,7 @@ app.listen(PORT, function () {
 app.use('/players', players);
 app.use('/courses', courses);
 app.use('/scoreLogs', scoreLogs);
+app.use('/auth', auth);
 // app.use('/transaction', transaction);
 
 // Models
