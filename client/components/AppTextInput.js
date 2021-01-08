@@ -15,13 +15,12 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     flexDirection: "row",
     width: "100%",
-    padding: 15,
+    padding: 17,
     marginVertical: 10
   },
   textInput: {
-    fontFamily: "MPLUSRounded",
     color: "black",
-    fontSize: 16
+    fontSize: 18
   }
 })
 

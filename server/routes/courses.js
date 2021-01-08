@@ -45,6 +45,7 @@ router.post('/', async function(req, res) {
     cname: req.body.cname,
     cid: Math.floor((Math.random() * 999999) + 1),
     par: req.body.par,
+    imageURL: req.body.imageURL,
     playCount: 0
   });
 

@@ -120,7 +120,7 @@ router.get('/:username/scoreLogs', async function(req, res) {
         content: "Player with the given username does not exist."
       });
     } else {
-      await ScoreLog.find({ username: req.params.username })
+      await ScoreLog.find({ username: req.params.username }).sort('-date')
       .exec(function(err, scoreLogs) {
         if (!scoreLogs) {
           res.send({
@@ -135,6 +135,121 @@ router.get('/:username/scoreLogs', async function(req, res) {
         }
       })
     }
+  })
+})
+
+//Get scores by following and course
+router.get('/:username/following/:cid/scoreLogs', async function(req, res) {
+  await Player.findOne({ username: req.params.username })
+  .exec(async function(err, player) {
+    if (!player) {
+      res.send({
+        success: false,
+        content: "Player with the given username does not exist."
+      });
+    } else {
+      await ScoreLog.find().and([
+        { $or: [{ 'username': { $in: player.following }}, { username: req.params.username }]},
+        { cid: req.params.cid }
+      ]).sort('score')
+      .exec(async function(err, followingScoreLogs) {
+        if (!followingScoreLogs) {
+          res.send({
+            success: false,
+            content: "Invalid Request."
+          });
+        } else {
+          res.send({
+            success: true,
+            content: followingScoreLogs
+          });
+        }
+      })
+    }  
+  })
+})
+
+//Get scores for feed
+router.get('/:username/feed', async function(req, res) {
+  await Player.findOne({ username: req.params.username })
+  .exec(async function(err, player) {
+    if (!player) {
+      res.send({
+        success: false,
+        content: "Player with the given username does not exist."
+      });
+    } else {
+      await ScoreLog.find({ 
+        $or: [{ 'username': { $in: player.following }}, 
+              { username: req.params.username }]})
+              .sort('-date')
+      .exec(async function(err, followingScoreLogs) {
+        if (!followingScoreLogs) {
+          res.send({
+            success: false,
+            content: "Invalid Request."
+          });
+        } else {
+          res.send({
+            success: true,
+            content: followingScoreLogs
+          });
+        }
+      })
+    } 
+  })
+})
+
+//Get following by usernames
+router.get('/:username/following', async function(req, res) {
+  await Player.findOne({ username: req.params.username })
+  .exec(async function(err, player) {
+    if (!player) {
+      res.send({
+        success: false,
+        content: "Player with the given username does not exist."
+      });
+    } else {
+      await Player.find().where('username').in(player.following)
+      .exec(async function(err, followingPlayers) {
+        if (!followingPlayers) {
+          res.send({
+            success: false,
+            content: "Invalid Request."
+          });
+        } else {
+          res.send({
+            success: true,
+            content: followingPlayers
+          });
+        }
+      })
+    }  
+  })
+})
+
+//Check if following given user
+router.get('/:username/isFollowing/:targetUser', async function(req, res) {
+  await Player.findOne({ username: req.params.username })
+  .exec(async function(err, player) {
+    if (!player) {
+      res.send({
+        success: false,
+        content: "Player with the given username does not exist."
+      });
+    } else {
+      if (player.following.includes(req.params.targetUser)) {
+        res.send({
+          success: true,
+          isFollowing: true
+        });
+      } else {
+        res.send({
+          success: false,
+          isFollowing: false
+        });
+      }
+    }  
   })
 })
 

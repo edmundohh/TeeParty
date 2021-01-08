@@ -17,6 +17,7 @@ router.post('/', async function(req, res) {
       await Course.findOne({ cid: req.body.cid })
       .exec(async function(err, course) {
         if (!course) {
+          console.log(req.body.cid)
           res.send({
             success: false,
             content: "Course with the given cid does not exist."
@@ -25,7 +26,11 @@ router.post('/', async function(req, res) {
           let scoreLog = new ScoreLog({
             score: req.body.score,
             cid: req.body.cid,
-            username: req.body.username
+            cname: course.cname,
+            imageURL: course.imageURL,
+            par: course.par,
+            username: req.body.username,
+            date: new Date()
           });
           course.playCount++;
           

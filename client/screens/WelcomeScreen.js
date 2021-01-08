@@ -8,8 +8,14 @@ function WelcomeScreen({ navigation }) {
     <View style={styles.background}>
       <Text style={styles.title}>TeeParty</Text>
       <View style={styles.buttonContainer}>
-        <AppButton title="LOGIN" color="white" onPress={() => navigation.navigate("Login")}/>
-        <AppButton title="REGISTER" color="yellow" onPress={() => navigation.navigate("Register")}/>
+        <AppButton title="LOGIN" 
+          textColor="green"
+          color="white" 
+          onPress={() => navigation.navigate("Login")}/>
+        <AppButton title="REGISTER" 
+          textColor="green"
+          color="yellow" 
+          onPress={() => navigation.navigate("Register")}/>
       </View>
     </View>
   );

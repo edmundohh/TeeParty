@@ -9,7 +9,7 @@ router.post('/', async function(req, res) {
   .exec(function(err, player) {
     if (!player) {
       res.send({
-        success: false,
+        login_success: false,
         content: "Player with the given username does not exist."
       });
     } else {

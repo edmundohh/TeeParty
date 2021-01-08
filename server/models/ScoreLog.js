@@ -9,9 +9,21 @@ var scoreLogSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  cname: {
+    type: String
+  },
+  imageURL: {
+    type: String
+  },
+  par: {
+    type: Number
+  },
   username: {
     type: String,
     required: true
+  },
+  date: {
+    type: Date
   }
 });
 

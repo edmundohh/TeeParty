@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import AppButton from '../components/AppButton';
 import ErrorMessage from '../components/ErrorMessage';
 
 import authApi from "../api/auth";
+import AuthContext from '../auth/context';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().label("Username"),
@@ -16,14 +17,20 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen(props) {
+  const authContext = useContext(AuthContext);
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleSubmit = async ({ username, password }) => {
     const result = await authApi.login(username, password);
-    console.log(result.data)
-    if (!result.ok) return setLoginFailed(true);
-    setLoginFailed(false);
-    console.log(result.data)
+    console.log(result.data);
+
+    if (result.ok && result.data.login_success) {
+      setLoginFailed(false);
+      const currentUser = result.data.content
+      authContext.setCurrentUser(currentUser);
+    } else {
+      return setLoginFailed(true);
+    }
   };
 
   return (

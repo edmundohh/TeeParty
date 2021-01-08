@@ -15,6 +15,9 @@ var courseSchema = new mongoose.Schema({
   },
   playCount: {
     type: Number
+  },
+  imageURL: {
+    type: String
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import AppButton from '../components/AppButton';
 import ErrorMessage from '../components/ErrorMessage';
 
 import playerApi from "../api/players";
+import AuthContext from '../auth/context';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().label("Username"),
@@ -17,6 +18,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen(props) {
+  const authContext = useContext(AuthContext);
   const [playerCreationFailed, setPlayerCreationFailed] = useState(false);
 
   const handleSubmit = async ({ username, name, password }) => {
@@ -24,6 +26,8 @@ function RegisterScreen(props) {
     console.log(result.data)
     if (!result.ok) return setPlayerCreationFailed(true);
     setPlayerCreationFailed(false);
+    const currentUser = result.data.content
+    authContext.setCurrentUser(currentUser);
     console.log(result.data)
   };
 
@@ -61,8 +65,8 @@ function RegisterScreen(props) {
               <ErrorMessage error={errors.password} visible={playerCreationFailed}/>
               <AppButton 
                 title="REGISTER"
-                color="green"
-                textColor="white"
+                color="yellow"
+                textColor="green"
                 onPress={handleSubmit}/>
               </>
             )}

@@ -23,16 +23,16 @@ const AuthNavigator = () => (
       name="Login"
       component={LoginScreen}
       options={{
-        headerStyle: { backgroundColor: "white" },
-        headerTintColor: "green",
+        headerStyle: { backgroundColor: "green" },
+        headerTintColor: "white",
         headerShown: true
       }}/>
     <Stack.Screen 
       name="Register" 
       component={RegisterScreen} 
       options={{
-        headerStyle: { backgroundColor: "white" },
-        headerTintColor: "green",
+        headerStyle: { backgroundColor: "green" },
+        headerTintColor: "white",
         headerShown: true
       }}/>
   </Stack.Navigator>
