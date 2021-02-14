@@ -1,5 +1,5 @@
 # TeeParty
-TeeParty is a mobile scoreboard and score-tracking application for golfers.
+TeeParty is a mobile leaderboard and score-tracking application for golfers.
 
 ## Login or Register
 Log in with your username & password or register as a new user.
