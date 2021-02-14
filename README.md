@@ -1,5 +1,5 @@
 # TeeParty
-TeeParty is a mobile scoreboard and score-tracking application for golfers. See details below for more.
+TeeParty is a mobile scoreboard and score-tracking application for golfers.
 
 ## Login or Register
 Log in with your username & password or register as a new user.
@@ -22,6 +22,6 @@ View courses and course details which displays total par and a leaderboard.
 <img src="./SimulatorScreens/courses_page.png" width="200"/> <img src="./SimulatorScreens/course_detail_page.png" width="200"/>
 
 ## Find Other Players
-View players you follow, search for players and view player profiles.
+View players you follow, search for other players and view their profiles.
 
 <img src="./SimulatorScreens/following_page.png" width="200"/> <img src="./SimulatorScreens/player_page.png" width="200"/>
